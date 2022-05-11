@@ -1,0 +1,125 @@
+## Test config file for BurnInTest Linux command line version
+## Use '#' to comment out lines, remove the comment to enable an option
+## Double ## have been used for explanations of each section/paramter
+## Single # have been used to comment out optional paramters/tests
+
+## Note that only 14 lines of tests can be displayed on the main window
+## due to console size limits
+
+## Logging 
+## Comment out the section to turn logging off
+<Logging>
+
+## Location (path) of log file
+LogFilename /home/smartm_user/Jenkins/TestItem/Linux-Item/BurnInTest/
+
+## Log prefix
+LogPrefix running_log
+## Format - Ascii|HTML|Certificate
+Format Ascii
+## Logging detail level - summary|normal
+LogDetailLevel normal
+## Trace level - None (0) | Activity Trace 1 (1)| Activity Trace 2 (2) 
+TraceLevel 0
+##maximum number of lines for file
+MaxFileLines 1000		
+## Logging mode - single file or multiples with timestamp
+##   - ClearAppend Clear results & append (single file)
+##   - AccumulateAppend Clear results & append (single file)
+##   - ClearNew Clear results and overwrite existing (single file) 
+##		- Timestamp Create new timestamped files (multiple files)
+LogMode ClearAppend
+
+</Logging>
+
+## Pre Test Action
+#<PreTest>
+##Action before tests start - None, Warn and ExternalWait - currently only None and ExternalWait are valid
+#Action 
+##If using ExternalWait this is the path of the file or script to launch and wait for the end of it's execution
+#ExternalPath /path/to/file
+#</PreTest>
+
+## Post Test Action 
+#<PostTest>
+
+##Auto stop action when tests have passed Stop, RunApp, Reboot
+#AutoStopPassed Stop
+##Manual stop action when tests have passed Stop, RunApp
+#ManualStopPassed Stop
+##If using AutoStopPassed RunApp this is the path of the file or script to launch before exiting
+#ExternalPathPassed /path/to/file
+##If using AutoStopPassed RunApp this is the parameters to pass to the application being launched
+#ExternalParamsPassed paramters
+#UseSystemBeepPassed
+#DisplayResultsPassed
+
+##Auto stop action when tests have failed Stop, RunApp, Reboot
+#AutoStopFailed Stop
+##Manual stop action when tests have failed Stop, RunApp
+#ManualStopFailed Stop
+##If using AutoStopPassed RunApp this is the path of the file or script to launch before exiting
+#ExternalPathFailed /path/to/file
+##If using AutoStopPassed RunApp this is the parameters to pass to the application being launched
+#ExternalParamsFailed paramters
+#UseSystemBeepFailed
+#DisplayResultsFailed
+
+## Duty cycles
+<DutyCycles>
+## Auto stop after XXX minutes
+AutoStopMinutes run_time_minutes
+## Auto stop after XXX cycles
+AutoStopCycles 0
+## Duty cycle load for each test, 1-100
+CPU 100
+CDDVD 100
+Memory 100
+Serial 100
+Parallel 100
+Disk 100
+Network 100
+USB 100
+Sound 100
+PCIE 100
+</DutyCycles>
+
+
+## Disk section - Have a <Test> section for each device to test
+<Disk>
+
+## Global disk test settings
+
+##TestAllDisks - Test all detected partitions, uncomment to use
+#TestAllDisks
+
+##TestAllRAWDisks - Test all detected RAW (unpartitioned) disks, uncomment to use
+#TestAllRAWDisks
+
+##When using Test all  - File size as % of disk space 1-15%
+#FileSize 1
+
+##When using Test all - Cyclic, Sequential, HighLow, Binary1, Binary2, Zeros, Ones, Random, RandomSeeking
+#TestMode Cyclic
+
+## Individual disk settings
+## Test a device
+<Test>
+## The device to be tested
+Device /dev/targetDevice
+## The test mode - Cyclic, Sequential, HighLow, Binary1, Binary2, Zeros, Ones, Random, RandomSeeking
+TestMode Cyclic
+##File size as % of disk space 1-15%
+FileSize 1
+## Duty cycle override, 0 - 100
+DutyCycleOverride 0
+## Seek count
+SeekCount 100
+</Test>
+</Disk>
+
+## Errors
+<Errors>
+## Action to take on error - Continue (Continue), Beep and continue (Beep), Stop tests (Stop)
+ActionOnError Continue
+</Errors>
